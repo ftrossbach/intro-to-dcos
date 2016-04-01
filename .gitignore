@@ -158,3 +158,4 @@ buildNumber.properties
 .mvn/timing.properties
 
 .vagrant
+*.retry

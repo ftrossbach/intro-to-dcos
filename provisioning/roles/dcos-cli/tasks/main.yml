@@ -1,0 +1,34 @@
+---
+# stores a list of all load balancers in ec2
+- action:
+    module: ec2_elb_facts
+    region: "eu-central-1"
+  register: elb_facts
+
+# stores the url of the loadbalancer containing the string "Elastic" in var internal_master_elb.stdout
+- shell: echo {% for elb in elb_facts.elbs %} {% if 'Elastic' in elb.dns_name %} http://{{ elb.dns_name }} {% endif %} {% endfor %}
+  register: internal_master_elb
+
+- name: Creates directory
+  file: path=/home/vagrant/dcos-cli state=directory
+
+- name: Downloads dcos-cli source
+  get_url: url=http://downloads.mesosphere.com/dcos-cli/install.sh dest=/home/vagrant/dcos-cli/install.sh validate_certs=False
+
+
+- name: Installs dcos cli
+  expect:
+    command: bash /home/vagrant/dcos-cli/install.sh /home/vagrant/dcos-cli {{ internal_master_elb.stdout }}
+    timeout: 300
+    responses:
+      (.*)(PATH)(.*): 'yes'
+
+
+- name: Skips dcos cli web authentication
+  expect:
+    command: /home/vagrant/dcos-cli/bin/dcos
+    timeout: 300
+    responses:
+      (.*)(code)(.*): ''
+      (.*)(email)(.*): ''
+
