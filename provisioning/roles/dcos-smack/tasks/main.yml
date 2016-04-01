@@ -1,0 +1,25 @@
+---
+
+- name: Adds dcos-kafka
+  shell: /home/vagrant/dcos-cli/bin/dcos package install kafka --yes
+  ignore_errors: True
+
+- name: Adds dcos-cassandra
+  shell: /home/vagrant/dcos-cli/bin/dcos package install cassandra  --yes
+  ignore_errors: True
+
+- name: Copies dcos-spark config
+  copy: src=spark-options.json dest=/tmp/spark-options.json
+
+- name: Adds dcos-spark
+  shell: /home/vagrant/dcos-cli/bin/dcos package install spark --yes
+  ignore_errors: True
+
+- name: Adds kafka-brokers
+  shell: /home/vagrant/dcos-cli/bin/dcos kafka broker add 0  --cpus 1 --mem 1024 --port 9042
+  register: brokers_added
+  ignore_errors: True
+
+- name: Starts kafka-brokers
+  shell: /home/vagrant/dcos-cli/bin/dcos kafka broker start 0
+  when: brokers_added|success

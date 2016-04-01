@@ -6,10 +6,10 @@
         "default": "10.0.4.0/22"
       },
       "SlaveInstanceType": {
-        "default": "m3.medium"
+        "default": "m3.xlarge"
       },
       "PublicSlaveInstanceType": {
-        "default": "m3.medium"
+        "default": "m3.xlarge"
       },
       "PrivateSubnetRange": {
         "default": "10.0.0.0/22"
@@ -18,7 +18,7 @@
         "default": "10.0.0.0/16"
       },
       "MasterInstanceType": {
-        "default": "m3.medium"
+        "default": "m3.large"
       },
       "StackCreationTimeout": {
         "default": "PT45M"

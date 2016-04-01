@@ -1,0 +1,14 @@
+{
+  "cassandra": {
+    "cluster-name": "DCOS Intro",
+    "node-count": 1,
+    "framework": {
+      "cpus": 1,
+      "mem": 512
+    },
+    "resources": {
+      "cpus": 2,
+      "mem": 2048
+    }
+  }
+}

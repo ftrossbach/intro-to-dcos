@@ -2,5 +2,5 @@
 stackName: "dcos-teststack"
 keyName: "dcos-intro"
 publicSlaveInstanceCount: 1
-slaveInstanceCount: 1
+slaveInstanceCount: 5
 bucket: "my-totally-random-bucket-name-123456788"

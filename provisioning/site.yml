@@ -3,3 +3,5 @@
   roles:
     - preparation
     - cloudformation
+    - dcos-cli
+    - dcos-smack
