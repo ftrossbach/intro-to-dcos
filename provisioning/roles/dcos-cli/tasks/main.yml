@@ -12,9 +12,8 @@
 - name: Creates directory
   file: path=/home/vagrant/dcos-cli state=directory
 
-- name: Downloads dcos-cli source
-  get_url: url=http://downloads.mesosphere.com/dcos-cli/install.sh dest=/home/vagrant/dcos-cli/install.sh validate_certs=False
-
+- name: Copies dcos-cli installation script
+  copy: src=install-1.6.1.sh dest=/home/vagrant/dcos-cli/install.sh
 
 - name: Installs dcos cli
   expect:
@@ -22,7 +21,6 @@
     timeout: 300
     responses:
       (.*)(PATH)(.*): 'yes'
-
 
 - name: Skips dcos cli web authentication
   expect:
