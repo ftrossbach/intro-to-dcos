@@ -1,0 +1,29 @@
+{
+  "id": "ingestion",
+  "container":{
+    "docker":{
+      "forcePullImage":true,
+      "image":"ftrossbach/dcos-intro",
+      "network":"BRIDGE",
+      "parameters":[
+
+      ],
+      "privileged":false
+    },
+    "type":"DOCKER",
+    "volumes":[
+
+    ]
+  },
+  "cpus":1,
+  "mem":2048,
+  "env":{
+    "KAFKA_HOSTS":"broker-0.kafka.mesos",
+    "KAFKA_PORT":"9092",
+    "twitter4j.debug":"true",
+    "twitter4j.oauth.accessToken":"****",
+    "twitter4j.oauth.accessTokenSecret":"****",
+    "twitter4j.oauth.consumerKey":"****",
+    "twitter4j.oauth.consumerSecret":"****"
+  }
+}

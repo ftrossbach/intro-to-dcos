@@ -5,6 +5,7 @@
     - python-pip
     - python-yaml
     - openjdk-8-jre
+    - docker.io
   become: yes
   become_method: sudo
 

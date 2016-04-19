@@ -16,12 +16,12 @@
   ignore_errors: True
 
 - name: Adds kafka-brokers
-  shell: /home/vagrant/dcos-cli/bin/dcos kafka broker add 0  --cpus 1 --mem 1024 --port 9042
+  shell: /home/vagrant/dcos-cli/bin/dcos kafka broker add 0..2 --port 9092
   register: brokers_added
   until: brokers_added|success
 
 - name: Starts kafka-brokers
-  shell: /home/vagrant/dcos-cli/bin/dcos kafka broker start 0
+  shell: /home/vagrant/dcos-cli/bin/dcos kafka broker start 0..2
   when: brokers_added|success
   register: brokers_started
   until: brokers_started|success
