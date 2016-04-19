@@ -35,13 +35,15 @@ Vagrant.configure(2) do |config|
 
   AWS_ACCESS_KEY = ENV['DCOS_INTRO_AWS_ACCESS_KEY']
   AWS_SECRET_KEY = ENV['DCOS_INTRO_AWS_SECRET_KEY']
+  AWS_REGION = ENV['DCOS_INTRO_AWS_REGION']
 
   config.vm.provision "ansible" do |ansible|
     ansible.verbose = ""
     ansible.playbook = "provisioning/site.yml"
     ansible.extra_vars = {
                            aws_access_key: AWS_ACCESS_KEY,
-                           aws_secret_key: AWS_SECRET_KEY
+                           aws_secret_key: AWS_SECRET_KEY,
+                           aws_region: AWS_REGION
                          }
   end
 end

@@ -13,7 +13,7 @@
   file: path=/home/vagrant/dcos-cli state=directory
 
 - name: Copies dcos-cli installation script
-  copy: src=install-1.6.1.sh dest=/home/vagrant/dcos-cli/install.sh
+  copy: src=install.sh dest=/home/vagrant/dcos-cli/install.sh
 
 - name: Installs dcos cli
   expect:
@@ -29,4 +29,7 @@
     responses:
       (.*)(code)(.*): ''
       (.*)(email)(.*): ''
+
+- name: This is the URL of your master ELB
+  debug: msg={{internal_master_elb.stdout}}
 

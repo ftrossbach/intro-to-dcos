@@ -8,13 +8,13 @@
   cloudformation:
     stack_name: "{{ stackName }}"
     state: "present"
-    region: "eu-central-1"
+    region: "{{ aws_region }}"
     template_url: "https://s3.amazonaws.com/{{ bucket }}/dcos-template.json"
     template_parameters:
       KeyName: "{{ keyName }}"
-      AcceptEULA: "Yes"
       PublicSlaveInstanceCount: "{{ publicSlaveInstanceCount }}"
       SlaveInstanceCount: "{{ slaveInstanceCount }}"
+      OAuthEnabled: "{{ oauthEnabled }}"
     tags:
       Stack: "ansible-cloudformation"
 

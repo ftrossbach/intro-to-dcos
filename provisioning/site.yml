@@ -4,4 +4,4 @@
     - preparation
     - cloudformation
     - dcos-cli
-    - dcos-smack
+#    - dcos-smack
