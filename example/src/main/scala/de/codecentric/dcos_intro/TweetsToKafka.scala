@@ -4,11 +4,9 @@ package de.codecentric.dcos_intro
 
 import akka.actor.{ActorRef, ActorSystem, Props}
 import akka.stream.ActorMaterializer
-
 import akka.stream.scaladsl.{Flow, Sink, Source}
-import com.softwaremill.react.kafka.{KeyValueProducerMessage, ProducerMessage, ProducerProperties, ReactiveKafka}
+import com.softwaremill.react.kafka.{ProducerProperties, ReactiveKafka}
 import com.typesafe.config.ConfigFactory
-import org.apache.kafka.common.serialization.StringSerializer
 import org.reactivestreams.Subscriber
 import twitter4j._
 
@@ -22,23 +20,17 @@ object TweetsToKafka extends App {
 
   val reactiveKafka = new ReactiveKafka()
 
-  val subscriber: Subscriber[ProducerMessage[String, Tweet]] = reactiveKafka.publish(ProducerProperties(
-    bootstrapServers = config.getString("dcos.kafka.host") + ":" + config.getString("dcos.kafka.port"),
+  val subscriber: Subscriber[Tweet] = reactiveKafka.publish(ProducerProperties(
+    brokerList = config.getString("dcos.kafka.host") + ":" + config.getString("dcos.kafka.port"),
     topic = config.getString("dcos.kafka.topic"),
-    keySerializer = new StringSerializer(),
-    valueSerializer = new TweetSerializer()
+
+    encoder = new TweetEncoder()
   ))
 
-
-
   val source = Source.actorPublisher[Tweet](Props[TweetPublisher])
-  val ref: ActorRef = Flow[Tweet]
-    .map[ProducerMessage[String, Tweet]] { elem: Tweet => {
-    val sdf = new java.text.SimpleDateFormat("dd-MM-yyyy")
-    val dateAsString = sdf.format(elem.date)
-    new KeyValueProducerMessage[String, Tweet](dateAsString, elem)
-  }
-  }.to(Sink.fromSubscriber(subscriber))
+  val ref: ActorRef = Flow[Tweet].filter(tweet => tweet.date != null && tweet.text != null)
+
+  .to(Sink.fromSubscriber(subscriber))
     .runWith(source)
 
 
