@@ -1,3 +1,3 @@
 #!/bin/bash
 
-dcos marathon app add /vagrant/provisioning/ingestion-real.json
+dcos marathon app add /vagrant/provisioning/ingestion.json
