@@ -34,6 +34,7 @@ Export
 - Execute the two lines from /vagrant/provisioning/cassandra.cql
 
 ## Start ingestion job
+- edit /vagrant/provisioning/ingestion.json to add your twitter credentials
 - Call /vagrant/provisioning/deploy-ingestion.sh
 
 ## Start digestion job
@@ -42,4 +43,9 @@ Export
 
 ## Build Fat Jar for example
 - cd into "example"
-- call sbt assembly
+- call ``sbt assembly``
+- Fat Jar will contain both Spark job and ingestion job. You would not have this normally, this is a simplification for
+  the sake of the example
+
+## Create Docker container
+- call ``sbt docker``
