@@ -2,7 +2,7 @@
 # stores a list of all load balancers in ec2
 - action:
     module: ec2_elb_facts
-    region: "eu-central-1"
+    region: "{{ aws_region }}"
   register: elb_facts
 
 # stores the url of the loadbalancer containing the string "Elastic" in var internal_master_elb.stdout
