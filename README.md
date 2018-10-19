@@ -4,7 +4,7 @@
 
 - install Vagrant and Virtualbox
 - install Ansible
-- get an an AWS Account. The AWS resources used in this example exceed the free tier, regular AWS fees apply. You have been warned!
+- get an AWS Account. The AWS resources used in this example exceed the free tier, regular AWS fees apply. You have been warned!
 - Create an EC2 key pair called dcos-intro
 - A Twitter access key
 
